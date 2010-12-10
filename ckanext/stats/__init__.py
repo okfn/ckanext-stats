@@ -18,7 +18,7 @@ except ImportError:
 
 from logging import getLogger
 from ckan.plugins import implements, SingletonPlugin
-from ckan.plugins import IMapperExtension
+from ckan.plugins import IRoutes
 
 log = getLogger(__name__)
 
@@ -27,4 +27,18 @@ class StatsPlugin(SingletonPlugin):
     '''
 
     implements(IRoutes, inherit=True)
+
+    def after_map(self, map):
+        # will rename once we have moved main stats code in here
+        map.connect('/statsnew',
+            controller='ckanext.stats:StatsController',
+            action='index')
+        map.connect('/statsnew/:action',
+            controller='ckanext.stats:StatsController')
+        return map
+
+from ckan.lib.base import BaseController, c, g, request, response, session
+class StatsController(BaseController):
+    def index(self, id=None):
+        return 'New stats plugin'
 
