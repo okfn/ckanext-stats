@@ -1,3 +1,4 @@
+import os
 from paste.deploy import appconfig
 import paste.fixture
 from ckan.config.middleware import make_app
@@ -12,8 +13,14 @@ class TestStatsPlugin:
         wsgiapp = make_app(config.global_conf, **config.local_conf)
         cls.app = paste.fixture.TestApp(wsgiapp)
 
-    def test_01(self):
+    def test_01_index(self):
         url = url_for('/statsnew', action='index')
         out = self.app.get(url)
         assert 'New stats plugin' in out, out
+
+    def test_02_config(self):
+        from pylons import config
+        paths = config['extra_public_paths']
+        rootdir = os.path.dirname(os.path.dirname(__file__))
+        assert rootdir in paths, (rootdir, paths)
 

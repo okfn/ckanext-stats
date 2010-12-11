@@ -16,9 +16,10 @@ except ImportError:
     import pkgutil
     __path__ = pkgutil.extend_path(__path__, __name__)
 
+import os
 from logging import getLogger
 from ckan.plugins import implements, SingletonPlugin
-from ckan.plugins import IRoutes
+from ckan.plugins import IRoutes, IConfigurer
 
 log = getLogger(__name__)
 
@@ -27,6 +28,7 @@ class StatsPlugin(SingletonPlugin):
     '''
 
     implements(IRoutes, inherit=True)
+    implements(IConfigurer, inherit=True)
 
     def after_map(self, map):
         # will rename once we have moved main stats code in here
@@ -36,6 +38,14 @@ class StatsPlugin(SingletonPlugin):
         map.connect('/statsnew/:action',
             controller='ckanext.stats:StatsController')
         return map
+
+    def update_config(self, config):
+        here = os.path.dirname(__file__)
+        rootdir = os.path.dirname(os.path.dirname(here))
+        # our_public_dir = os.path.join(rootdir, 'public')
+        our_public_dir = here
+        config['extra_public_paths'] = ','.join([our_public_dir,
+                config.get('extra_public_paths', '')])
 
 from ckan.lib.base import BaseController, c, g, request, response, session
 class StatsController(BaseController):
