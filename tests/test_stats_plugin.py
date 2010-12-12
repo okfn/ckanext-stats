@@ -18,9 +18,15 @@ class TestStatsPlugin:
         out = self.app.get(url)
         assert 'New stats plugin' in out, out
 
+    def test_02_index(self):
+        url = url_for('/statsnew', action='leaderboard')
+        out = self.app.get(url)
+        assert 'Leaderboard' in out, out
+
     def test_02_config(self):
         from pylons import config
         paths = config['extra_public_paths']
-        rootdir = os.path.dirname(os.path.dirname(__file__))
-        assert rootdir in paths, (rootdir, paths)
+        publicdir = os.path.join(os.path.dirname(os.path.dirname(__file__)),
+            'public')
+        assert paths.startswith(publicdir), (publicdir, paths)
 

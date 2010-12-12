@@ -1,9 +1,3 @@
-var SOLR = {
-	facet: function(attribute) {
-	}
-}
-
-
 jQuery(document).ready(function($) {
 	$('form').submit(function(e) {
 		e.preventDefault();
@@ -14,7 +8,7 @@ jQuery(document).ready(function($) {
 	loadSolr('tags');
 
 	function loadSolr(attribute) {
-		var url = 'http://solr.okfn.org/solr/ckan/select?indent=on&wt=json&facet=true&rows=0&indent=true&facet.mincount=1&facet.limit=30&q=*:*&facet.field=' + attribute;
+		var url = solrCoreUrl + '/select?indent=on&wt=json&facet=true&rows=0&indent=true&facet.mincount=1&facet.limit=30&q=*:*&facet.field=' + attribute;
 		function handleSolr(data) {
 			var results = [];
 			ourdata = data.facet_counts.facet_fields[attribute];
@@ -22,6 +16,9 @@ jQuery(document).ready(function($) {
 			for (ii in ourdata) {
 				if (ii % 2 == 0) {
 					newrow.name = ourdata[ii];
+					if (!newrow.name) {
+						newrow.name = '[Not Specified]';
+					}
 				} else {
 					newrow.count = ourdata[ii];
 					results.push(newrow);

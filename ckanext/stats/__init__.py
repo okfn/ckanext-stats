@@ -42,13 +42,20 @@ class StatsPlugin(SingletonPlugin):
     def update_config(self, config):
         here = os.path.dirname(__file__)
         rootdir = os.path.dirname(os.path.dirname(here))
-        # our_public_dir = os.path.join(rootdir, 'public')
-        our_public_dir = here
+        our_public_dir = os.path.join(rootdir, 'public')
+        template_dir = os.path.join(rootdir, 'templates')
         config['extra_public_paths'] = ','.join([our_public_dir,
                 config.get('extra_public_paths', '')])
+        config['extra_template_paths'] = ','.join([template_dir,
+                config.get('extra_template_paths', '')])
 
-from ckan.lib.base import BaseController, c, g, request, response, session
+from ckan.lib.base import BaseController, c, g, request, response, session, render, config
 class StatsController(BaseController):
     def index(self, id=None):
         return 'New stats plugin'
+
+    def leaderboard(self, id=None):
+        c.solr_core_url = config.get('ckanext.stats.solr_core_url',
+                'http://solr.okfn.org/solr/ckan')
+        return render('ckanext/stats/leaderboard.html')
 

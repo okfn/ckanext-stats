@@ -1,14 +1,15 @@
 <html>
   <head>
+    <script type="text/javascript">
+      var solrCoreUrl = 'http://solr.okfn.org/solr/ckan';
+    </script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
 
     <link type="text/css" rel="stylesheet" media="all" href="style.css" />
   </head>
   <body>
-    <h1>CKAN Statistics</h1>
-
-    <h2>Dataset Leaderboard</h2>
+    <h1>CKAN Dataset Leaderboard</h1>
     <p>Choose a dataset attribute and find out which categories in that area have the most datasets. E.g. tags, groups, license, res_format, country.</p>
     <form>
       <label for="category">Choose area</label>
@@ -20,11 +21,5 @@
       <ul class="chartlist" id="category-counts">
       </ul>
     </div>
-
-    <div class="category-counts-over-time">
-      <h2>Category Counts Over Time</h2>
-      <p>Much harder to do as requires us to go through revisions ...</p>
-    </div>
-
   </body>
 </html>

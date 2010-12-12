@@ -1,5 +1,4 @@
 div.category-counts {
-  margin-left: 2em;
 }
 
 div.category-counts-over-time {
@@ -13,8 +12,9 @@ div.category-counts-over-time {
 .chartlist { 
   float: left; 
   border-top: 1px solid #EEE; 
-  width: 80%;
+  width: 90%;
   padding-left: 0;
+  margin-left: 0;
 }
 
 .chartlist li { 
