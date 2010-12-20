@@ -31,11 +31,10 @@ class StatsPlugin(SingletonPlugin):
     implements(IConfigurer, inherit=True)
 
     def after_map(self, map):
-        # will rename once we have moved main stats code in here
-        map.connect('/statsnew',
+        map.connect('/stats',
             controller='ckanext.stats:StatsController',
             action='index')
-        map.connect('/statsnew/:action',
+        map.connect('/stats/:action',
             controller='ckanext.stats:StatsController')
         return map
 

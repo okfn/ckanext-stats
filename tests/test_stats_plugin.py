@@ -21,13 +21,13 @@ class TestStatsPlugin:
         assert paths.startswith(publicdir), (publicdir, paths)
 
     def test_02_index(self):
-        url = url_for('/statsnew', action='index')
+        url = url_for('/stats', action='index')
         out = self.app.get(url)
         assert 'Total number of packages' in out, out
         assert 'Most Edited Packages' in out, out
 
     def test_03_leaderboard(self):
-        url = url_for(controller='statsnew', action='leaderboard')
+        url = url_for(controller='stats', action='leaderboard')
         out = self.app.get(url)
         assert 'Leaderboard' in out, out
 
