@@ -1,4 +1,4 @@
-from ckan.lib.base import BaseController, render
+from ckan.lib.base import BaseController, render, config
 import ckan.lib.stats
 
 class StatsController(BaseController):

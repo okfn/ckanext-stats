@@ -21,7 +21,7 @@ class StatsPlugin(SingletonPlugin):
     '''Stats plugin.'''
 
     implements(IRoutes, inherit=True)
-    #implements(IConfigurer, inherit=True)
+    implements(IConfigurer, inherit=True)
 
     def after_map(self, map):
         map.connect('stats', '/stats',
