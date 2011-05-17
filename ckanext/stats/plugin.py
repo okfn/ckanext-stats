@@ -22,9 +22,9 @@ class StatsPlugin(SingletonPlugin):
 
     def update_config(self, config):
         here = os.path.dirname(__file__)
-        rootdir = os.path.dirname(os.path.dirname(here))
-        our_public_dir = os.path.join(rootdir, 'public')
-        template_dir = os.path.join(rootdir, 'templates')
+        our_public_dir = os.path.join(here, 'public')
+        print 'DIR', our_public_dir
+        template_dir = os.path.join(here, 'templates')
         config['extra_public_paths'] = ','.join([our_public_dir,
                 config.get('extra_public_paths', '')])
         config['extra_template_paths'] = ','.join([template_dir,

@@ -1,0 +1,6 @@
+recursive-include ckanext/stats/templates *.html
+recursive-include ckanext/stats/public *.css
+recursive-include ckanext/stats/public *.js
+recursive-include ckanext/stats/public *.html
+prune .hg
+include README.txt
