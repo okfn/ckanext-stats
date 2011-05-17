@@ -26,6 +26,6 @@ setup(
 	"""
         [ckan.plugins]
 	# Add plugins here, eg
-	stats=ckanext.stats:StatsPlugin
+	stats=ckanext.stats.plugin:StatsPlugin
 	""",
 )
