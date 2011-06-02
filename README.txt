@@ -20,4 +20,4 @@ Tests
 To run tests written for this extension::
 
   pip -E pyenv install nose
-  nosetests --ckan ckanext/stats/tests/
+  nosetests --ckan ../ckan/test.ini ckanext/stats/tests/
