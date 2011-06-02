@@ -2,6 +2,7 @@ import datetime
 
 from pylons import config
 from sqlalchemy import *
+from paste.deploy.converters import asbool
 
 from ckan import model
 
