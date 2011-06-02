@@ -7,7 +7,7 @@ from ckan import model
 
 # Use a private config option to enable the cache, rather than the ckan.cache_enabled,
 # because we want to default it to on. It is such an intensive operation.
-cache_enabled = config.get('ckan.stats_cache_enabled', True)
+cache_enabled = asbool(config.get('ckan.stats_cache_enabled', 'True'))
 if cache_enabled:
     from pylons import cache
     our_cache = cache.get_cache('stats', type='dbm')
