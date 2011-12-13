@@ -5,77 +5,19 @@
 
   <py:def function="page_title">Statistics</py:def>
 
-  <py:def function="body_class">hide-sidebar</py:def>
-
-  <py:def function="optional_head">
-    <!--[if IE]><script language="javascript" type="text/javascript" src="http://assets.okfn.org/ext/flot/0.6/excanvas.min.js"></script><![endif]-->
-    <script type="text/javascript" src="http://assets.okfn.org/ext/flot/0.6/jquery.flot.min.js">//pointless jscript comment</script>
+  <py:def function="page_heading">
+    Statistics
   </py:def>
 
-  <div py:match="content">
-    <h1>Statistics</h1>
-  
+  <div py:def="content">
     <h3>Total number of packages</h3>
     <div id="new_packages_graph" style="width:800px;height:300px"></div>
-    <script type="text/javascript">
-      var options = {
-          xaxis: {
-          mode: "time",
-          timeformat: "%y-%b"
-          },
-          yaxis: {
-          min: 0
-          }
-      };
-      var data = [
-        [ 
-        <py:for each="week_date, num_packages, cumulative_num_packages in c.num_packages_by_week">
-          [ new Date(${week_date.replace('-', ',')}), ${cumulative_num_packages} ],
-        </py:for>
-        ]
-      ];
-      $.plot($("#new_packages_graph"), data, options);
-    </script>
-    
+
     <h3>Revisions to packages per week</h3>
     <div id="package_revisions_graph" style="width:800px;height:300px"></div>
     <h4>Legend:</h4>
     <div id="legend" />
-    <script type="text/javascript">
-      var options = {
-          xaxis: {
-          mode: "time",
-          timeformat: "%y-%b"
-          },
-          legend: {
-          position: "nw",
-          container: legend,
-          },
-          colors: ["#ffcc33", "#ff8844"]
-      };
-      var data = [
-        {label: "All package revisions",
-          lines: {
-            fill: 1,
-            },
-        data: [ 
-        <py:for each="week_date, revs, num_revisions, cumulative_num_revisions in c.package_revisions_by_week">
-          [ new Date(${week_date.replace('-', ',')}), ${num_revisions} ],
-        </py:for>
-        ]},
-        {label: "New packages",
-          lines: {
-            fill: 1,
-            },
-        data: [ 
-        <py:for each="week_date, pkgs, num_packages, cumulative_num_packages in c.new_packages_by_week">
-          [ new Date(${week_date.replace('-', ',')}), ${num_packages} ],
-        </py:for>
-        ]},
-      ];
-      $.plot($("#package_revisions_graph"), data, options);
-    </script>
-        
+
     <h3>Top Rated Packages</h3>
     <table py:if="c.top_rated_packages">
       <tr><th>Package</th><th>Average rating</th><th>Number of ratings</th></tr>
@@ -124,5 +66,68 @@
     </p>
   </div>
 
+  <py:def function="optional_footer">
+    <script type="text/javascript">
+      // HACKy
+      $('body').addClass('no-sidebar');
+    </script>
+
+    <!--[if IE]><script language="javascript" type="text/javascript" src="http://assets.okfn.org/ext/flot/0.6/excanvas.min.js"></script><![endif]-->
+    <script type="text/javascript" src="http://assets.okfn.org/ext/flot/0.6/jquery.flot.min.js">//pointless jscript comment</script>
+    <script type="text/javascript">
+      var options = {
+          xaxis: {
+          mode: "time",
+          timeformat: "%y-%b"
+          },
+          yaxis: {
+          min: 0
+          }
+      };
+      var data = [
+        [ 
+        <py:for each="week_date, num_packages, cumulative_num_packages in c.num_packages_by_week">
+          [ new Date(${week_date.replace('-', ',')}), ${cumulative_num_packages} ],
+        </py:for>
+        ]
+      ];
+      $.plot($("#new_packages_graph"), data, options);
+    </script>
+    
+    <script type="text/javascript">
+      var options = {
+          xaxis: {
+          mode: "time",
+          timeformat: "%y-%b"
+          },
+          legend: {
+          position: "nw",
+          container: legend,
+          },
+          colors: ["#ffcc33", "#ff8844"]
+      };
+      var data = [
+        {label: "All package revisions",
+          lines: {
+            fill: 1,
+            },
+        data: [ 
+        <py:for each="week_date, revs, num_revisions, cumulative_num_revisions in c.package_revisions_by_week">
+          [ new Date(${week_date.replace('-', ',')}), ${num_revisions} ],
+        </py:for>
+        ]},
+        {label: "New packages",
+          lines: {
+            fill: 1,
+            },
+        data: [ 
+        <py:for each="week_date, pkgs, num_packages, cumulative_num_packages in c.new_packages_by_week">
+          [ new Date(${week_date.replace('-', ',')}), ${num_packages} ],
+        </py:for>
+        ]},
+      ];
+      $.plot($("#package_revisions_graph"), data, options);
+    </script>
+  </py:def>
   <xi:include href="../../layout.html" />
 </html>
