@@ -1,3 +1,6 @@
+Deprecation Notice: ckanext-stats is included in CKAN core distribution for CKAN > 1.5.1 
+****************************************************************************************
+
 ckanext-stats
 +++++++++++++
 
